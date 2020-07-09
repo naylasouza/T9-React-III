@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
-import { Link} from 'react-router-dom';
-import api from "../../services/api/Api";
-import './styles.css';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+
+import api from '../../services/api'
+
+import './styles.css'
 
 class Main extends Component {
-  state ={
+  state = {
     biographies: []
-
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadBiographies();
   }
+
   loadBiographies = async () => {
+    //resposta da minha API = response/resposta
     const response = await api.get(`/biographies`)
-    
-    const {docs} = response.data
-    
-    this. setState({ biographies: docs})
+
+    const { docs } = response.data
+
+    this.setState({ biographies: docs })
   }
 
   render() {
@@ -26,12 +29,11 @@ class Main extends Component {
       <div className="biography-list">
         {biographies.map(biography => (
           <article key={biography._id}>
-            <strong>{biography.nome} </strong>
-        <p className='biobiography-description'>{biography.description}</p>
-           <Link to={`/biographies/${biography._id}`}>Acessar</Link>
-            </article>
+            <strong>{biography.nome}</strong>
+            <p className="biography-description">{biography.description}</p>
+            <Link to={`/biography/${biography._id}`}>Acessar</Link>
+          </article>
         ))}
-       
       </div>
     )
   }
